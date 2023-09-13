@@ -1,14 +1,18 @@
 package ru.somsin.leetcode.problems.array.easy;
 
 public class $_1470_ShuffleTheArray {
-    public int[] shuffle(int[] nums, int n) {
-        int[] result = new int[nums.length];
+    public static int[] shuffle(int[] nums, int n) {
+        int length = nums.length;
 
-        for (int i = 0, j = 0; j < n; i++, j++) {
-            result[i++] = nums[j];
-            result[i] = nums[j + n];
+        for (int i = n; i < length; i++) {
+            nums[i] = nums[i] * 1024 + nums[i - n];
         }
 
-        return result;
+        for (int i = 0, j = n; j < length; i += 2, j++) {
+            nums[i] = nums[j] % 1024;
+            nums[i + 1] = nums[j] / 1024;
+        }
+
+        return nums;
     }
 }
