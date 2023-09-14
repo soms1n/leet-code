@@ -1,16 +1,20 @@
 package ru.somsin.leetcode.problems.array.easy;
 
+import java.util.Collections;
 import java.util.List;
 
 public class $_2824_CountPairsWhoseSumIsLessThanTarget {
     public int countPairs(List<Integer> nums, int target) {
-        int counter = 0;
+        Collections.sort(nums);
 
-        for (int i = 0; i < nums.size() - 1; i++) {
-            for (int j = i + 1; j < nums.size(); j++) {
-                if (nums.get(i) + nums.get(j) < target) {
-                    counter++;
-                }
+        int counter = 0, left = 0, right = nums.size() - 1;
+
+        while (left < right) {
+            if (nums.get(left) + nums.get(right) < target) {
+                counter += right - left;
+                left++;
+            } else {
+                right--;
             }
         }
 
