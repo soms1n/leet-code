@@ -1,17 +1,18 @@
 package ru.somsin.leetcode.problems.array.easy;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class $_2367_NumberOfArithmeticTriplets {
     public int arithmeticTriplets(int[] nums, int diff) {
-        int n = nums.length, counter = 0;
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
 
-        for (int i = 0; i < n - 2; i++) {
-            for (int j = i + 1; j < n - 1; j++) {
-                for (int k = j + 1; k < n; k++) {
-                    if (nums[k] - nums[j] == diff && nums[j] - nums[i] == diff) {
-                        counter++;
-                    }
-                }
-            }
+        int counter = 0;
+        for (int num : nums) {
+            counter += set.contains(num + diff) && set.contains(num + diff * 2) ? 1 : 0;
         }
 
         return counter;
