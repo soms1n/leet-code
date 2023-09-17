@@ -5,21 +5,17 @@ import java.util.Map;
 
 public class $_961_NRepeatedElementInSize2NArray {
     public int repeatedNTimes(int[] nums) {
-        int result = 0, max = 0;
-
         Map<Integer, Integer> numbers = new HashMap<>();
         for (int num : nums) {
-            Integer number = numbers.get(num);
-            number = number == null ? 0 : ++number;
-            numbers.put(num, number);
-            result = Math.max(result, number);
+            numbers.put(num, numbers.getOrDefault(num, 0) + 1);
+        }
 
-            if (max <= number) {
-                result = num;
-                max = number;
+        for (int number : numbers.keySet()) {
+            if (numbers.get(number) > 1) {
+                return number;
             }
         }
 
-        return result;
+        throw new RuntimeException();
     }
 }
