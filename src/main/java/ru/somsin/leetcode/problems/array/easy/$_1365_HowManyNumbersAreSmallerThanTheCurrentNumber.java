@@ -1,19 +1,23 @@
 package ru.somsin.leetcode.problems.array.easy;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class $_1365_HowManyNumbersAreSmallerThanTheCurrentNumber {
     public int[] smallerNumbersThanCurrent(int[] nums) {
-        int[] result = new int[nums.length];
+        int[] result = nums.clone();
 
-        for (int i = 0; i < nums.length; i++) {
-            int counter = 0;
+        Arrays.sort(result);
 
-            for (int num : nums) {
-                if (num < nums[i]) {
-                    counter++;
-                }
-            }
+        Map<Integer, Integer> numbers = new HashMap<>();
 
-            result[i] = counter;
+        for (int i = 0; i < result.length; i++) {
+            numbers.putIfAbsent(result[i], i);
+        }
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = numbers.get(nums[i]);
         }
 
         return result;
