@@ -1,28 +1,19 @@
 package ru.somsin.leetcode.problems.array.easy;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 public class $_1394_FindLuckyIntegerInAnArray {
     public int findLucky(int[] arr) {
-        Map<Integer, Integer> numbers = new HashMap<>();
-        Set<Integer> values = new HashSet<>();
+        int[] counter = new int[501];
 
         for (int value : arr) {
-            int number = numbers.getOrDefault(value, 0) + 1;
-            numbers.put(value, number);
+            counter[value]++;
+        }
 
-            if (number == value) {
-                values.add(value);
-            } else if (number > value) {
-                values.remove(value);
+        for (int i = 500; i > 0; i--) {
+            if (counter[i] == i) {
+                return i;
             }
         }
 
-        return values.stream()
-                .max(Integer::compareTo)
-                .orElse(-1);
+        return -1;
     }
 }
