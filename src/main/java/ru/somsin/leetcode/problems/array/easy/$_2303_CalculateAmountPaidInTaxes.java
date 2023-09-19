@@ -2,34 +2,24 @@ package ru.somsin.leetcode.problems.array.easy;
 
 public class $_2303_CalculateAmountPaidInTaxes {
     public double calculateTax(int[][] brackets, int income) {
-        if (income == 0) {
-            return 0;
-        }
+        double tax = 0;
+        int prev = 0;
 
-        int upper = 0, percent = 1;
-
-        int value = Math.min(brackets[0][upper], income);
-        double tax = calculateTax(value, brackets[0][percent]);
-
-        income -= value;
-
-        for (int row = 1; row < brackets.length; row++) {
-            if (income == 0) {
+        for (int[] bracket : brackets) {
+            int upper = bracket[0], percent = bracket[1];
+            if (income >= upper) {
+                tax += calculateTax(upper, prev, percent);
+                prev = upper;
+            } else {
+                tax += calculateTax(income, prev, percent);
                 return tax;
             }
-
-            int diff = brackets[row][upper] - brackets[row - 1][upper];
-            value = Math.min(diff, income);
-
-            tax += calculateTax(value, brackets[row][percent]);
-
-            income -= value;
         }
 
         return tax;
     }
 
-    public double calculateTax(int value, int percent) {
-        return value * ((double) percent / 100);
+    public double calculateTax(int value, int prev, int percent) {
+        return (value - prev) * percent / 100d;
     }
 }
