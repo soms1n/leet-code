@@ -2,15 +2,14 @@ package ru.somsin.leetcode.problems.array.easy;
 
 public class $_26_RemoveDuplicatesFromSortedArray {
     public int removeDuplicates(int[] nums) {
-        int left = 1, prev = nums[0];
+        int writePointer = 1;
 
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != prev) {
-                nums[left++] = nums[i];
-                prev = nums[i];
+        for (int readPointer = 1; readPointer < nums.length; readPointer++) {
+            if (nums[readPointer] != nums[readPointer - 1]) {
+                nums[writePointer++] = nums[readPointer];
             }
         }
 
-        return left;
+        return writePointer;
     }
 }
