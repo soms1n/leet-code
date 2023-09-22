@@ -1,20 +1,23 @@
 package ru.somsin.leetcode.problems.string.easy;
 
+import java.util.Arrays;
+
 public class $_14_LongestCommonPrefix {
     public String longestCommonPrefix(String[] strs) {
-        String result = strs[0];
+        Arrays.sort(strs);
 
-        for (int i = 1; i < strs.length; i++) {
-            String str = strs[i];
+        String first = strs[0];
+        String last = strs[strs.length - 1];
+        int n = Math.min(first.length(), last.length());
+        StringBuilder result = new StringBuilder();
 
-            for (int j = 0; j < result.length(); j++) {
-                if (j == str.length() || str.charAt(j) != result.charAt(j)) {
-                    result = result.substring(0, j);
-                    break;
-                }
+        for (int i = 0; i < n; i++) {
+            if (first.charAt(i) != last.charAt(i)) {
+                return result.toString();
             }
+            result.append(first.charAt(i));
         }
 
-        return result;
+        return result.toString();
     }
 }
