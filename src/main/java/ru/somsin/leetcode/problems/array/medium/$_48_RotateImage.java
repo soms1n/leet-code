@@ -1,4 +1,4 @@
-package ru.somsin.leetcode.problems.array.easy;
+package ru.somsin.leetcode.problems.array.medium;
 
 public class $_48_RotateImage {
     public void rotate(int[][] matrix) {
