@@ -2,16 +2,41 @@ package ru.somsin.leetcode.problems.easy;
 
 public class $_415_AddStrings {
     public String addStrings(String num1, String num2) {
-        return String.valueOf(defineNumber(num1) + defineNumber(num2));
-    }
+        String result = "";
+        boolean add = false;
 
-    private long defineNumber(String stringNumber) {
-        long number = 0, multiply = 1;
+        for (int index = Math.max(num1.length(), num2.length()) - 1, indexNum1 = num1.length() - 1, indexNum2 = num2.length() - 1; index >= 0; index--, indexNum1--, indexNum2--) {
+            int total = 0;
 
-        for (int index = stringNumber.length() - 1; index >= 0; index--, multiply *= 10) {
-            number += (long) (stringNumber.charAt(index) - 48) * multiply;
+            if (indexNum1 >= 0 && indexNum2 >= 0) {
+                total = defineNumber(num1, indexNum1) + defineNumber(num2, indexNum2);
+            } else if (indexNum1 >= 0) {
+                total = defineNumber(num1, indexNum1);
+            } else if (indexNum2 >= 0) {
+                total = defineNumber(num2, indexNum2);
+            }
+
+            if (add) {
+                add = false;
+                total++;
+            }
+
+            if (total >= 10) {
+                result = String.valueOf(total).charAt(1) + result;
+                add = true;
+            } else {
+                result = total + result;
+            }
         }
 
-        return number;
+        if (add) {
+            result = "1" + result;
+        }
+
+        return result;
+    }
+
+    private int defineNumber(String number, int index) {
+        return (int) number.charAt(index) - 48;
     }
 }
