@@ -4,12 +4,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class $_501_FindModeInBinarySearchTree {
     public int[] findMode(TreeNode root) {
         Map<Integer, Integer> counter = new HashMap<>();
+        Stack<TreeNode> stack = new Stack<>();
 
-        int max = dfs(root, counter, 0);
+        stack.push(root);
+
+        int max = 0;
+
+        while (!stack.empty()) {
+            TreeNode node = stack.pop();
+
+            int numbers = counter.getOrDefault(node.val, 0) + 1;
+
+            if (numbers > max) {
+                max = numbers;
+            }
+
+            counter.put(node.val, numbers);
+
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+        }
 
         List<Integer> result = new ArrayList<>();
 
@@ -20,24 +44,5 @@ public class $_501_FindModeInBinarySearchTree {
         }
 
         return result.stream().mapToInt(Integer::intValue).toArray();
-    }
-
-    private int dfs(TreeNode node, Map<Integer, Integer> counter, int max) {
-        if (node == null) {
-            return 0;
-        }
-
-        int numbers = counter.getOrDefault(node.val, 0) + 1;
-
-        if (numbers > max) {
-            max = numbers;
-        }
-
-        counter.put(node.val, numbers);
-
-        int maxLeft = dfs(node.left, counter, numbers);
-        int maxRight = dfs(node.right, counter, numbers);
-
-        return Math.max(Math.max(maxLeft, maxRight), max);
     }
 }
