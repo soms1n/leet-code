@@ -7,26 +7,20 @@ public class $_202_HappyNumber {
     public boolean isHappy(int n) {
         Set<Integer> calculated = new HashSet<>();
 
-        int value = n, sum = 0;
+        while (n != 1 && !calculated.contains(n)) {
+            calculated.add(n);
 
-        while (sum != 1) {
-            sum = 0;
+            int sum = 0;
 
-            int length = String.valueOf(value).length();
-
-            for (int i = 0, divider = 1; i < length; i++, divider *= 10) {
-                int remainder = value / divider % 10;
-                sum += remainder * remainder;
+            while (n != 0) {
+                int number = n % 10;
+                sum += number * number;
+                n /= 10;
             }
 
-            if (calculated.contains(sum)) {
-                return false;
-            }
-
-            calculated.add(sum);
-            value = sum;
+            n = sum;
         }
 
-        return true;
+        return n == 1;
     }
 }
