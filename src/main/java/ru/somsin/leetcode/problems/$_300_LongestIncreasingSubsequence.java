@@ -1,35 +1,26 @@
 package ru.somsin.leetcode.problems;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class $_300_LongestIncreasingSubsequence {
     public int lengthOfLIS(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
+        int[] sortedArray = new int[nums.length];
+        int length = 0;
 
-        for (int i = 0; i < nums.length; i++) {
-            int value = Integer.MIN_VALUE;
+        for (int num : nums) {
+            int index = Arrays.binarySearch(sortedArray, 0, length, num);
 
-            List<Integer> subsequence = new ArrayList<>();
-
-            for (int j = i; j < nums.length; j++) {
-                if (nums[j] > value) {
-                    value = nums[j];
-                    subsequence.add(value);
-                }
+            if (index < 0) {
+                index = -(index + 1);
             }
 
-            if (!subsequence.isEmpty()) {
-                list.add(subsequence);
+            sortedArray[index] = num;
+
+            if (index == length) {
+                length++;
             }
         }
 
-        int result = 0;
-
-        for (List<Integer> subsequence : list) {
-            result = Math.max(subsequence.size(), result);
-        }
-
-        return result;
+        return length;
     }
 }
