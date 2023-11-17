@@ -1,21 +1,18 @@
 package ru.somsin.leetcode.problems;
 
-import java.util.Arrays;
-
 public class $_209_MinimumSizeSubarraySum {
     public int minSubArrayLen(int target, int[] nums) {
-        Arrays.sort(nums);
+        int i = 0, j = 0, min = Integer.MAX_VALUE, sum = 0;
 
-        int sum = 0;
+        while (j < nums.length) {
+            sum += nums[j++];
 
-        for (int i = nums.length - 1; i >= 0; i--) {
-            sum += nums[i];
-
-            if (sum >= target) {
-                return nums.length - i;
+            while (sum >= target) {
+                min = Math.min(min, j - i);
+                sum -= nums[i++];
             }
         }
 
-        return sum >= target ? 1 : 0;
+        return min == Integer.MAX_VALUE ? 0 : min;
     }
 }
