@@ -6,31 +6,14 @@ public class $_2_AddTwoNumbers {
     }
 
     public ListNode calculate(ListNode l1, ListNode l2, int additionalValue) {
-        if (l1 == null && l2 == null) {
-            if (additionalValue > 0) {
-                return new ListNode(additionalValue);
-            }
-
+        if (l1 == null && l2 == null && additionalValue == 0) {
             return null;
         }
 
         int sum = additionalValue;
+        sum += l1 == null ? 0 : l1.val;
+        sum += l2 == null ? 0 : l2.val;
 
-        if (l1 != null) {
-            sum += l1.val;
-        }
-
-        if (l2 != null) {
-            sum += l2.val;
-        }
-
-        if (sum > 9) {
-            additionalValue = 1;
-            sum = sum % 10;
-        } else {
-            additionalValue = 0;
-        }
-
-        return new ListNode(sum, calculate(l1 == null ? null : l1.next, l2 == null ? null : l2.next, additionalValue));
+        return new ListNode(sum % 10, calculate(l1 == null ? null : l1.next, l2 == null ? null : l2.next, sum / 10));
     }
 }
