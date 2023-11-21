@@ -2,18 +2,25 @@ package ru.somsin.leetcode.problems;
 
 public class $_2_AddTwoNumbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return calculate(l1, l2, 0);
-    }
+        ListNode result = new ListNode();
+        ListNode next = result;
 
-    public ListNode calculate(ListNode l1, ListNode l2, int additionalValue) {
-        if (l1 == null && l2 == null && additionalValue == 0) {
-            return null;
+        int additionalValue = 0, sum = 0;
+
+        while (l1 != null || l2 != null || additionalValue > 0) {
+            sum = additionalValue;
+            sum += l1 == null ? 0 : l1.val;
+            sum += l2 == null ? 0 : l2.val;
+
+            additionalValue = sum / 10;
+
+            next.next = new ListNode(sum % 10);
+
+            next = next.next;
+            l1 = l1 != null && l1.next != null ? l1.next : null;
+            l2 = l2 != null && l2.next != null ? l2.next : null;
         }
 
-        int sum = additionalValue;
-        sum += l1 == null ? 0 : l1.val;
-        sum += l2 == null ? 0 : l2.val;
-
-        return new ListNode(sum % 10, calculate(l1 == null ? null : l1.next, l2 == null ? null : l2.next, sum / 10));
+        return result.next;
     }
 }
