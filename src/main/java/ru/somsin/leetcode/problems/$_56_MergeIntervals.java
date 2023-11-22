@@ -1,10 +1,15 @@
 package ru.somsin.leetcode.problems;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class $_56_MergeIntervals {
     public int[][] merge(int[][] intervals) {
         int rows = intervals.length;
 
         int size = 0, left = -1, right = -1;
+
+        Arrays.sort(intervals, Comparator.comparingInt(interval -> interval[0]));
 
         int[] temp = new int[rows * 2];
 
