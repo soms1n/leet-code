@@ -12,19 +12,8 @@ public class $_3_LongestSubstringWithoutRepeatingCharacters {
         while (right < s.length()) {
             char current = s.charAt(right);
 
-            if (counter.contains(current)) {
+            while (counter.contains(current)) {
                 counter.remove(s.charAt(left++));
-
-                if (counter.contains(current)) {
-                    while (left < right) {
-                        char removeChar = s.charAt(left++);
-                        counter.remove(removeChar);
-
-                        if (removeChar == current) {
-                            break;
-                        }
-                    }
-                }
             }
 
             counter.add(current);
