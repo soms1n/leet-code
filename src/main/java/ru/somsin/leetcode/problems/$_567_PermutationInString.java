@@ -1,44 +1,26 @@
 package ru.somsin.leetcode.problems;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class $_567_PermutationInString {
     public boolean checkInclusion(String s1, String s2) {
-        Map<Character, Integer> map = new HashMap<>();
-        int counter = 0;
+        int[] s1Counter = new int[26];
+        int[] s2Counter = new int[26];
 
         for (char ch : s1.toCharArray()) {
-            map.put(ch, map.getOrDefault(ch, 0) + 1);
-            counter++;
+            s1Counter[ch - 'a']++;
         }
 
         int left = 0, right = 0;
 
         while (right < s2.length()) {
-            char current = s2.charAt(right);
+            s2Counter[s2.charAt(right) - 'a']++;
 
-            if (map.containsKey(current) && map.get(current) > 0) {
-                int val = map.get(current) - 1;
-                map.put(current, val);
-
-                if (val >= 0) {
-                    counter--;
+            if (right - left + 1 == s1.length()) {
+                if (Arrays.equals(s1Counter, s2Counter)) {
+                    return true;
                 }
-            } else {
-                counter += counter < s1.length() ? 1 : 0;
-
-                char leftChar = s2.charAt(left);
-
-                if (map.containsKey(leftChar)) {
-                    map.put(leftChar, map.get(leftChar) + 1);
-                }
-
-                left++;
-            }
-
-            if (counter == 0) {
-                return true;
+                s2Counter[s2.charAt(left++) - 'a']--;
             }
 
             right++;
