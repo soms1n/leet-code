@@ -1,24 +1,34 @@
 package ru.somsin.leetcode.problems;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class $_159_LongestSubstringWithAtMostTwoDistinctCharacters {
     public int lengthOfLongestSubstringTwoDistinct(String s) {
-        Set<Character> window = new HashSet<>();
+        Map<Character, Integer> window = new HashMap<>();
 
         int left = 0, right = 0, result = 0;
 
         while (right < s.length()) {
             char current = s.charAt(right);
 
-            window.add(current);
+            window.put(current, window.getOrDefault(current, 0) + 1);
 
             while (window.size() > 2) {
-                window.remove(s.charAt(left++));
+                char leftChar = s.charAt(left);
+                int counter = window.get(leftChar) - 1;
+
+                if (counter == 0) {
+                    window.remove(leftChar);
+                } else {
+                    window.put(leftChar, counter);
+                }
+
+                left++;
             }
 
             result = Math.max(result, right - left + 1);
+
             right++;
         }
 
