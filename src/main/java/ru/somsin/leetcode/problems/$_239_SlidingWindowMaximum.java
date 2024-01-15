@@ -6,9 +6,9 @@ public class $_239_SlidingWindowMaximum {
         int[] result = new int[windows];
 
         for (int window = 0; window < windows; window++) {
-            int max = Integer.MIN_VALUE;
+            int max = nums[window];
 
-            for (int index = window; index < window + k; index++) {
+            for (int index = window + 1; index < window + k; index++) {
                 max = Math.max(max, nums[index]);
             }
 
