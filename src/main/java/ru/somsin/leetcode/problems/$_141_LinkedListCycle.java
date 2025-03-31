@@ -2,20 +2,16 @@ package ru.somsin.leetcode.problems;
 
 public class $_141_LinkedListCycle {
     public boolean hasCycle(ListNode head) {
-        if (head == null) {
-            return false;
-        }
-
         ListNode slow = head;
-        ListNode fast = slow.next;
+        ListNode fast = head;
 
-        while (fast != null && (fast = fast.next) != null) {
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
             if (slow == fast) {
                 return true;
             }
-
-            slow = slow.next;
-            fast = fast.next;
         }
 
         return false;
