@@ -2,22 +2,14 @@ package ru.somsin.leetcode.problems;
 
 public class $_234_PalindromeLinkedList {
     public boolean isPalindrome(ListNode head) {
-        ListNode slow = head;
-        ListNode fast = head;
+        ListNode slow = head, fast = head;
 
         while (fast != null && fast.next != null) {
             slow = slow.next;
-
-            if (fast.next.next == null) {
-                fast = fast.next;
-            } else {
-                fast = fast.next.next;
-            }
+            fast = fast.next.next;
         }
 
-        ListNode prev = slow;
-        slow = slow.next;
-        prev.next = null;
+        ListNode prev = null;
 
         while (slow != null) {
             ListNode next = slow.next;
@@ -26,15 +18,13 @@ public class $_234_PalindromeLinkedList {
             slow = next;
         }
 
-        slow = head;
-
-        while (slow.next != null) {
-            if (slow.val != fast.val) {
+        while (prev != null) {
+            if (head.val != prev.val) {
                 return false;
             }
 
-            slow = slow.next;
-            fast = fast.next;
+            head = head.next;
+            prev = prev.next;
         }
 
         return true;
