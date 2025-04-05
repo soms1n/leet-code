@@ -17,7 +17,7 @@ public class $_349_IntersectionOfTwoArrays {
 
         Set<Integer> result = new HashSet<>();
 
-        for (int number: nums2) {
+        for (int number : nums2) {
             if (numbers.contains(number)) {
                 result.add(number);
             }
