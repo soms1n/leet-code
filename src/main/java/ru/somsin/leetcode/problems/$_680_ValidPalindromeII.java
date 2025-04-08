@@ -24,6 +24,8 @@ public class $_680_ValidPalindromeII {
                 if (chars[right - 1] == chars[left]) {
                     savedLeft = left;
                     savedRight = right - 1;
+                } else {
+                    itsOver = true;
                 }
 
                 left++;
@@ -33,6 +35,8 @@ public class $_680_ValidPalindromeII {
                 if (chars[left + 1] == chars[right]) {
                     savedLeft = left + 1;
                     savedRight = right;
+                } else {
+                    itsOver = true;
                 }
 
                 right--;
